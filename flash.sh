@@ -18,7 +18,6 @@ unzip -o ota-signed-juiceme-kernel.zip
 
 echo "Please enter your computer password if prompted"
 
-sudo $FASTBOOT oem 4F500301 || true
 sudo $FASTBOOT flash recovery recovery-juiceme-kernel.img
 
 # from OTA
