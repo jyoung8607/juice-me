@@ -14,27 +14,13 @@ if (Test-Path -path $fastboot) {
     Remove-Item "platform-tools.zip"
 }
 
-if (Test-Path -path "files/system.img") {
-    $zip_file = Get-Item "ota-signed-latest.zip"
-    $system_img = Get-Item "files/system.img"
-
-    if ($zip_file.CreationTime -gt $system_img.CreationTime){
-        Write-Host 'Newer version found. Extracting...';
-        Expand-Archive -Path "ota-signed-latest.zip" -DestinationPath "." -Force
-    }
-
-} else {
-    Write-Host 'Extracting NEOS...';
-    Expand-Archive -Path "ota-signed-latest.zip" -DestinationPath "." -Force
-}
+Write-Host 'Extracting NEOS...';
+Expand-Archive -Path "ota-signed-juiceme-kernel.zip" -DestinationPath "." -Force
 
 
 Invoke-Expression "$($fastboot) flash recovery recovery.img"
 Invoke-Expression "$($fastboot) flash boot files/boot.img"
-Invoke-Expression "$($fastboot) flash system files/system.img"
 
-Invoke-Expression "$($fastboot) erase userdata"
-Invoke-Expression "$($fastboot) format cache"
 Invoke-Expression "$($fastboot) reboot"
 
 

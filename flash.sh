@@ -14,17 +14,15 @@ if [ ! -f $FASTBOOT ]; then
   rm -f platform-tools.zip
 fi
 
+unzip -o ota-signed-juiceme-kernel.zip
+
 echo "Please enter your computer password if prompted"
 
 sudo $FASTBOOT oem 4F500301 || true
-sudo $FASTBOOT flash recovery recovery.img
+sudo $FASTBOOT flash recovery recovery-juiceme-kernel.img
 
 # from OTA
 [ -f files/logo.bin ] && $FASTBOOT flash LOGO files/logo.bin
 sudo $FASTBOOT flash boot files/boot.img
-sudo $FASTBOOT flash system files/system.img
 
-# clear userdata
-sudo $FASTBOOT erase userdata
-sudo $FASTBOOT format cache
 sudo $FASTBOOT reboot
