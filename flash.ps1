@@ -18,7 +18,7 @@ Write-Host 'Extracting NEOS...';
 Expand-Archive -Path "ota-signed-juiceme-kernel.zip" -DestinationPath "." -Force
 
 
-Invoke-Expression "$($fastboot) flash recovery recovery.img"
+Invoke-Expression "$($fastboot) flash recovery recovery-juiceme-kernel.img"
 Invoke-Expression "$($fastboot) flash boot files/boot.img"
 
 Invoke-Expression "$($fastboot) reboot"
